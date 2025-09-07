@@ -40,8 +40,10 @@ export default function Login() {
   return (
     <div className="mt-6 max-w-md mx-auto flex flex-col items-center justify-center
       rounded-2xl px-10 pt-6 pb-5
-      bg-black/40
-      backdrop-blur-xl border border-white/10 shadow-2xl shadow-orange-500/10">
+      dark:bg-black/40 bg-amber-100/50
+      backdrop-blur-xl 
+      border dark:border-white/10 border-orange-500/20
+      dark:shadow-2xl dark:shadow-orange-500/10 shadow-[0px_0px_2px_orange]">
       
       {/* Title */}
       <h2 className="font-extrabold mb-4 text-xl tracking-wide text-center 
@@ -59,15 +61,15 @@ export default function Login() {
             name="emailId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm text-gray-300">Email</FormLabel>
+                <FormLabel className="text-sm text-gray-700 dark:text-gray-300">Email</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="riya.goyal@gmail.com" 
                     {...field} 
                     className="h-12 pl-4 rounded-sm [&+p]:text-xs
-                      bg-white/5 text-white
-                      border border-white/10
-                      focus:border-orange-400 focus:ring-2 focus:ring-orange-500/40
+                      dark:bg-white/5 bg-white/45 
+                      dark:text-white text-gray-900
+                      border dark:border-white/10 border-gray-500/40
                       placeholder:text-gray-400 transition-all"
                   />
                 </FormControl>
@@ -82,16 +84,16 @@ export default function Login() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm text-gray-300">Password</FormLabel>
+                <FormLabel className="text-sm text-gray-700 dark:text-gray-300">Password</FormLabel>
                 <FormControl>
                   <Input 
                     type="password"
                     placeholder="••••••••" 
                     {...field} 
                     className="h-12 pl-4 rounded-sm [&+p]:text-xs
-                      bg-white/5 text-white
-                      border border-white/10
-                      focus:border-orange-400 focus:ring-2 focus:ring-orange-500/40
+                      dark:bg-white/5 bg-white/45 
+                      dark:text-white text-gray-900
+                      border dark:border-white/10 border-gray-500/40
                       placeholder:text-gray-400 transition-all"
                   />
                 </FormControl>
@@ -111,11 +113,11 @@ export default function Login() {
           </Button>
 
           {/* Sign up link */}
-          <p className="text-sm text-gray-400 text-center">
+          <p className="text-sm dark:text-gray-400 text-gray-700 text-center">
             Don’t have an account yet?{" "}
             <Link 
               to="/signup" 
-              className="text-orange-400 hover:text-orange-500 font-semibold underline-offset-4 hover:underline">
+              className="dark:text-orange-400 dark:hover:text-orange-500 text-orange-500 hover:text-orange-600 font-semibold underline-offset-4 hover:underline">
               Sign up
             </Link>
           </p>

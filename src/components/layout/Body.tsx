@@ -4,8 +4,9 @@ import Header from './Header';
 
 const Body = () => {
   return (
-    <div className="relative tracking-wide text-white min-h-screen
-      bg-gradient-to-br from-black via-orange-950/20 to-black"
+    <div className="relative tracking-wide min-h-screen
+      bg-gradient-to-br dark:from-black dark:via-orange-950/20 dark:to-black
+      from-orange-50 via-white to-orange-50"
       style={{ height: '100dvh' }}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">

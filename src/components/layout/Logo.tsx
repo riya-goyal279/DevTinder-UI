@@ -4,7 +4,7 @@ import devtinderLogo from '../../resources/images/devtinder.png';
 
 const Logo = () => {
   return (
-    <Link to="/" className='flex items-center gap-2 font-bold text-2xl'>
+    <Link to="/" className='flex items-center gap-2 font-bold text-2xl text-gray-800 dark:text-white'>
       <img src={devtinderLogo} alt="devtinder logo" className='w-6 h-8' />
       DevTinder
     </Link>
