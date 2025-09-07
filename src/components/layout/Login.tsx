@@ -43,7 +43,7 @@ export default function Login() {
       </h2>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4" autoComplete="off" autoCorrect="off">
           
           <CustomFormField
             control={form.control}
