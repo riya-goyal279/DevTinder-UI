@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import devtinderLogo from '../../resources/images/devtinder.png';
 

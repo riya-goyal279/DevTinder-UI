@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Body from "./components/layout/Body";
@@ -13,6 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Body/>}>
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Login />} />
             </Route>
           </Routes>
         </ThemeProvider>

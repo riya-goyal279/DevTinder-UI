@@ -4,19 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { FormSchema } from "@/utils/formSchema";
-import { Button } from "@/components/ui/button";
 import { z } from "zod";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import {Form} from "@/components/ui/form"
 import { Link } from "react-router-dom";
+import CustomFormField from "./CustomFormField";
+import PrimaryButton from "./PrimaryButton";
 
 export default function Login() {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,74 +37,31 @@ export default function Login() {
       border dark:border-white/10 border-orange-500/20
       dark:shadow-2xl dark:shadow-orange-500/10 shadow-[0px_0px_2px_orange]">
       
-      {/* Title */}
       <h2 className="font-extrabold mb-4 text-xl tracking-wide text-center 
         bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
         Welcome Back 👋
       </h2>
 
-      {/* Form */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
           
-          {/* Email */}
-          <FormField
+          <CustomFormField
             control={form.control}
             name="emailId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm text-gray-700 dark:text-gray-300">Email</FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="riya.goyal@gmail.com" 
-                    {...field} 
-                    className="h-12 pl-4 rounded-sm [&+p]:text-xs
-                      dark:bg-white/5 bg-white/45 
-                      dark:text-white text-gray-900
-                      border dark:border-white/10 border-gray-500/40
-                      placeholder:text-gray-400 transition-all"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Email"
+            placeholder="riya.goyal@gmail.com"
           />
 
-          {/* Password */}
-          <FormField
+          <CustomFormField 
             control={form.control}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm text-gray-700 dark:text-gray-300">Password</FormLabel>
-                <FormControl>
-                  <Input 
-                    type="password"
-                    placeholder="••••••••" 
-                    {...field} 
-                    className="h-12 pl-4 rounded-sm [&+p]:text-xs
-                      dark:bg-white/5 bg-white/45 
-                      dark:text-white text-gray-900
-                      border dark:border-white/10 border-gray-500/40
-                      placeholder:text-gray-400 transition-all"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="Password"
+            placeholder="••••••••"
+            type="password"
           />
 
-          {/* Submit Button */}
-          <Button 
-            type="submit" 
-            className="py-4 px-12 mt-2 rounded-sm font-bold tracking-wide
-              bg-gradient-to-r from-orange-500 to-red-500
-              hover:from-red-500 hover:to-orange-500 w-full
-              text-white shadow-lg shadow-orange-500/20 transition-all duration-300">
-            Sign In
-          </Button>
+          <PrimaryButton label="Sign In" />
 
-          {/* Sign up link */}
           <p className="text-sm dark:text-gray-400 text-gray-700 text-center">
             Don’t have an account yet?{" "}
             <Link 
