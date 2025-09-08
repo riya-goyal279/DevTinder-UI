@@ -21,7 +21,6 @@ const Body = () => {
                 <Outlet />
             </main>
 
-            {/* ✅ Toast provider (only once in your app) */}
             <Toaster
                 richColors
                 position="top-center"

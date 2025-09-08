@@ -8,13 +8,14 @@ import { Form } from "@/components/ui/form";
 import { Link } from "react-router-dom";
 import CustomFormField from "./CustomFormField";
 import PrimaryButton from "./PrimaryButton";
+import axios from "axios";
 
 const Login = () => {
   const form = useForm<LoginValues>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      emailId: "",
-      password: "",
+      emailId: "riya.goyal@gmail.com",
+      password: "Riya@1234",
     },
   });
 
@@ -22,21 +23,27 @@ const Login = () => {
     console.log("✅ Form submitted with values:", data);
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post(
+        "http://localhost:3000/login",
+        data,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
-      if (!response.ok) throw new Error("Login failed");
+      console.log("✅ Login success:", response.data);
 
-      const result = await response.json();
-      console.log("✅ Login success:", result);
-
-      toast("Login successful 🎉");
-    } catch (error) {
+      toast.success("Login successful 🎉");
+    } catch (error: any) {
       console.error("❌ Login error:", error);
-      toast.error("Login failed");
+
+      // Axios errors often have response details
+      if (error.response) {
+        toast.error(`Login failed: ${error.response.data.message || "Server error"}`);
+      } else {
+        toast.error("Login failed: Network error");
+      }
     }
   }
 
