@@ -5,12 +5,21 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { LoginSchema, type LoginValues } from "@/utils/formSchema";
 import { Form } from "@/components/ui/form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomFormField from "./CustomFormField";
 import PrimaryButton from "./PrimaryButton";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "@/utils/userSlice";
+import { BASE_URL } from "@/utils/constants";
+import type { RootState } from "@/utils/appStore";
+import { useEffect } from "react";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userData = useSelector((state: RootState) => state.user);
+
   const form = useForm<LoginValues>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -24,7 +33,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        `${BASE_URL}/login`,
         data,
         {
           headers: { "Content-Type": "application/json" },
@@ -32,20 +41,22 @@ const Login = () => {
         }
       );
 
-      console.log("✅ Login success:", response.data);
-
+      dispatch(addUser(response.data.data));
+      navigate("/");
       toast.success("Login successful 🎉");
     } catch (error: any) {
-      console.error("❌ Login error:", error);
-
-      // Axios errors often have response details
-      if (error.response) {
-        toast.error(`Login failed: ${error.response.data.message || "Server error"}`);
+      if (error.status === 404) {
+        toast.error("User missing 😅 Create an account first.");
       } else {
-        toast.error("Login failed: Network error");
+        toast.error("☹️ Login failed: Network error");
       }
     }
   }
+
+  useEffect(() => {
+    if(userData)
+      navigate("/");
+  }, []);
 
   return (
     <div

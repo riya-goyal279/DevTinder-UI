@@ -1,6 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Header";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
+import axios from "axios";
+import { BASE_URL } from "@/utils/constants";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "@/utils/userSlice";
+import type { RootState } from "@/utils/appStore";
 
 const BackgroundBlobs = () => (
     <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -10,6 +16,35 @@ const BackgroundBlobs = () => (
 );
 
 const Body = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const userData = useSelector((state: RootState) => state.user);
+
+    const fetchUser = async () => {
+        try {
+            const user = await axios.get(`${BASE_URL}/profile/view`, {
+                withCredentials: true,
+            });
+            dispatch(addUser(user.data));
+            navigate("/");
+        } catch (error: any) {
+            navigate("/login");
+            if (error.status === 401) {
+                toast("🚀 Please log in to continue.", { style: {
+                    background: "#fef3c7",
+                    color: "#111827",
+                    border: "1px solid #fdba74",
+                }});
+            } else {
+                toast.error("😢 Something went wrong.");
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (!userData) fetchUser();
+    }, []);
+
     return (
         <div
             className="relative tracking-wide min-h-screen h-dvh

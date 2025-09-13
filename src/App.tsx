@@ -5,6 +5,7 @@ import Login from "./components/layout/Login";
 import Signup from "./components/layout/Signup";
 import { Provider } from 'react-redux';
 import { appStore } from "./utils/appStore";
+import Feed from "./components/layout/Feed";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Provider store={appStore}>
             <Routes>
               <Route path="/" element={<Body/>}>
+                <Route path="/" element={<Feed/>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Route>
